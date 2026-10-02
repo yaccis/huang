@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2048 - AI 演示</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <aside class="side-panel left-panel">
+      <div class="side-card">
+        <h2>操作说明</h2>
+        <div class="control-group">
+          <div class="control-title">键盘控制</div>
+          <p>使用方向键移动：</p>
+          <div class="key-row">
+            <span class="key">↑</span>
+            <span class="key">↓</span>
+            <span class="key">←</span>
+            <span class="key">→</span>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-title">WASD 控制</div>
+          <div class="key-row">
+            <span class="key">W</span>
+            <span class="key">A</span>
+            <span class="key">S</span>
+            <span class="key">D</span>
+          </div>
+        </div>
+        <div class="control-tip">
+          相同数字相撞会合并。没有发生实际移动时，不会生成新的数字。
+        </div>
+      </div>
+    </aside>
+
+    <main class="game-container">
+      <header class="top-bar">
+        <div><h1>2048</h1></div>
+        <div class="score-panel">
+          <div class="score-box">
+            <span class="label">分数</span>
+            <span id="score">0</span>
+          </div>
+          <div class="score-box">
+            <span class="label">最佳</span>
+            <span id="best-score">0</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="action-row">
+        <p>合并数字，得到 2048！</p>
+        <div class="buttons">
+          <button id="new-game-btn" type="button">新游戏</button>
+          <button id="ai-demo-btn" type="button">AI开始演示</button>
+        </div>
+      </div>
+
+      <div class="toolbar-row">
+        <button id="theme-toggle-btn" type="button">深色模式</button>
+      </div>
+
+      <div id="ai-info" class="ai-info hidden">
+        <div id="ai-step-text">AI准备中</div>
+        <div id="ai-direction-text">…</div>
+      </div>
+
+      <div id="board" class="board" aria-label="2048 game board"></div>
+      <div id="message" class="message hidden" aria-live="polite"></div>
+    </main>
+
+    <aside class="side-panel right-panel">
+      <div class="side-card">
+        <div class="history-header">
+          <h2>最近战绩</h2>
+          <span id="history-count" class="history-count">0/10</span>
+        </div>
+        <div id="history-list" class="history-list">
+          <div class="history-empty">暂无战绩</div>
+        </div>
+        <button id="history-toggle-btn" class="secondary-btn hidden" type="button">查看完整列表</button>
+      </div>
+    </aside>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
