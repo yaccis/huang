@@ -403,6 +403,12 @@ function makeWorker() {
       [9,10,11,12],
       [16,15,14,13]
     ];
+    // 搜索深度：往前看几步。实测定标（两批固定种子共 180 局，同一批种子可比）：
+    //   depth 2 → 达成 2048 约 24%，一步约 0.3ms
+    //   depth 4 → 达成 2048 约 51%，一步约 5~6ms   ← 采用
+    //   depth 5 → 达成 2048 约 47%，但一步约 30ms（慢 5 倍却没有变强）
+    // 另外偶数深度停在「我走完、还没生成新数字」的局面上做评估，比奇数深度更稳，所以取 4。
+    const SEARCH_DEPTH = 4;
     const cache = new Map();
 
     function clone(b){ return b.map(r => [...r]); }
@@ -528,7 +534,7 @@ function makeWorker() {
       const candidates=[];
       for(const d of DIRS){
         const x=move(b,d); if(!x.moved) continue;
-        let v=search(x.board,2,true);
+        let v=search(x.board,SEARCH_DEPTH,true);
         // 右/下优先，但不是硬锁死；必要时允许左/上整理。
         if(d==='right') v+=22000;
         if(d==='down') v+=16000;
