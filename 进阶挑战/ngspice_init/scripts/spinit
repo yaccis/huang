@@ -1,0 +1,15 @@
+* 精简版 ngspice 初始化文件（给 PySpice 用）
+* PySpice 通过环境变量 SPICE_LIB_DIR 找到本文件（本目录必须叫 scripts，文件名必须是 spinit）
+*
+* ngbehavior：选定网表兼容模式。不设这一项时，ngspice 启动会在输出开头打印一行
+*             "Note: No compatibility mode selected!"，而 PySpice 解析结果时要求
+*             第一行就是 "Circuit:"，多出来的这一行会让命令行模式直接报错。
+* filetype  ：rawfile 输出格式。ngspice 官方 Windows 包自带的 spinit 里写的是
+*             set filetype=ascii，PySpice 只认二进制段（找 "Binary:"），所以必须改成 binary。
+*
+* 说明：这里不加载 XSPICE 的码模型（.cm），因为本项目的三个电路只用 R/C/独立源/MOS，
+*       用不到 XSPICE 器件；这样也不会因为码模型路径不对而报错。
+
+set ngbehavior=ltps
+set filetype=binary
+set interactive
